@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Unidad II: Direcciones IP y sus Estructuras</title>
+        <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 2rem;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+        
+        .indice {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+        }
+        
+        code {
+            background: #e9ecef;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+		.historia-detallada h3 {
+			color: #2c3e50;
+			margin-top: 1.5rem;
+			font-size: 1.2rem;
+		}
+
+		.medidas-crisis {
+			margin: 1rem 0;
+			background: #f8f9fa;
+		}
+
+		.medidas-crisis th {
+			background-color: #2c3e50;
+		}
+
+		.medidas-crisis td {
+			vertical-align: top;
+		}
+		.estructura-detallada h3 {
+			color: #2c3e50;
+			margin-top: 1.8rem;
+		}
+
+		.tabla-ipv4 table {
+			background: #f8f9fa;
+			margin: 1.5rem 0;
+		}
+
+		.tabla-ipv4 th {
+			background-color: #3498db;
+			color: white;
+		}
+
+		.diagrama-ipv6 table {
+			background: #e9f5fe;
+			margin: 1.5rem 0;
+		}
+
+		.comparativa-encabezados td {
+			font-family: 'Courier New', monospace;
+			font-size: 0.9em;
+		}
+
+		code {
+			display: block;
+			margin: 1rem 0;
+			padding: 1rem;
+			background: #e9ecef;
+			border-left: 4px solid #3498db;
+		}
+		/* Estilos Sección 3 */
+		.evolucion-detallada ol ul {
+			margin-left: 2rem;
+			list-style-type: circle;
+		}
+
+		.tabla-mejoras th {
+			background-color: #2c3e50;
+		}
+
+		.estadisticas-adopcion td {
+			font-size: 0.95em;
+			padding: 0.8rem;
+		}
+
+		/* Estilos Sección 4 */
+		.clases-fundamentales td {
+			vertical-align: middle;
+		}
+
+		.clases-fundamentales th:nth-child(3),
+		.clases-fundamentales td:nth-child(3) {
+			font-family: 'Courier New', monospace;
+		}
+
+		.direcciones-especiales table {
+			background: #f8f9fa;
+			margin: 1.5rem 0;
+		}
+		/* Estilos Sección 5 */
+		.ejemplo-subnetting table {
+			background: #f8f9fa;
+			margin: 1.5rem 0;
+		}
+
+		.herramientas-subnet td {
+			font-family: 'Courier New', monospace;
+			font-size: 0.9em;
+		}
+
+		/* Estilos Sección 6 */
+		.direcciones-ipv4 th {
+			background-color: #2c3e50;
+			color: white;
+		}
+
+		.especiales-ipv6 td {
+			vertical-align: top;
+			padding: 0.8rem;
+		}
+
+		/* Estilos Sección 7 */
+		.casos-detallados h3 {
+			margin-top: 2rem;
+			color: #3498db;
+		}
+
+		.solucion-caso1 code {
+			background: #e9f5fe;
+			padding: 1rem;
+			margin: 1rem 0;
+			border-radius: 5px;
+		}
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Unidad II: Direcciones IP y sus Estructuras</h1>
+        
+        <div class="indice">
+            <h2>Índice</h2>
+            <ul>
+                <li><a href="#introduccion">1. Introducción histórica</a></li>
+                <li><a href="#estructuras">2. Estructuras IP básicas</a></li>
+                <li><a href="#evolucion">3. Evolución IPv4 a IPv6</a></li>
+                <li><a href="#clasificacion">4. Clasificación de direcciones IPv4</a></li>
+                <li><a href="#subredes">5. Subredes y máscaras</a></li>
+                <li><a href="#alcance">6. Direcciones por alcance</a></li>
+                <li><a href="#casos">7. Casos de estudio</a></li>
+            </ul>
+        </div>
+
+        <h2 id="introduccion">1. Introducción histórica</h2>
+		<div class="historia-detallada">
+			<h3>Orígenes del Protocolo IP</h3>
+			<p>El concepto de direccionamiento IP se desarrolló como parte del protocolo TCP/IP, creado por Vinton Cerf y Robert Kahn en 1974 para DARPA (Defense Advanced Research Projects Agency). Su primer despliegue operativo ocurrió en 1977 entre tres redes diferentes: ARPANET, Packet Radio Network y Packet Satellite Network, demostrando la viabilidad de la interconexión de redes heterogéneas.</p>
+			
+			<h3>Estandarización de IPv4</h3>
+			<p>IPv4 se formalizó en septiembre de 1981 mediante el RFC 791, convirtiéndose en el protocolo central de la naciente Internet. Sus características clave incluyeron:
+				<ul>
+					<li>Sistema de direccionamiento jerárquico de 32 bits</li>
+					<li>Mecanismo de fragmentación de paquetes</li>
+					<li>Protocolo sin conexión (best-effort delivery)</li>
+					<li>Soporte para 4,294,967,296 direcciones únicas</li>
+				</ul>
+			</p>
+			<h3>Crisis de Direccionamiento y Soluciones Temporales</h3>
+			<p>Para 1992, se hizo evidente que el espacio IPv4 sería insuficiente. Se implementaron medidas paliativas:
+				<table class="medidas-crisis">
+					<tr><th>Tecnología</th><th>Año</th><th>Función</th></tr>
+					<tr><td>CIDR</td><td>1993 (RFC 1519)</td><td>Eliminación de clases mediante máscaras variables</td></tr>
+					<tr><td>NAT</td><td>1994 (RFC 1631)</td><td>Reutilización de direcciones privadas</td></tr>
+					<tr><td>DHCP</td><td>1993 (RFC 1531)</td><td>Gestión dinámica de direcciones</td></tr>
+				</table>
+			</p>
+			
+			<h3>Desarrollo de IPv6</h3>
+			<p>El IETF inició formalmente el desarrollo de IPv6 en 1994 (RFC 1752), con estos objetivos principales:
+				<ol>
+					<li>Espacio de direcciones ampliado a 128 bits</li>
+					<li>Simplificación del encabezado para routing eficiente</li>
+					<li>Soporte nativo para calidad de servicio (QoS)</li>
+					<li>Autoconfiguración sin servidores DHCP</li>
+					<li>Seguridad integrada (IPsec obligatorio)</li>
+				</ol>
+				La primera especificación oficial fue el RFC 2460 en 1998, con actualizaciones posteriores en el RFC 8200 (2017).
+			</p>
+			
+			<h3>Transición y Adopción Actual</h3>
+			<p>El despliegue de IPv6 ha sido gradual:
+				<ul>
+					<li><strong>2008</strong>: Primeros despliegues operativos por grandes ISPs</li>
+					<li><strong>2012</strong>: World IPv6 Launch Day (6 de junio)</li>
+					<li><strong>2023</strong>:
+						<ul>
+							<li>40% del tráfico global usa IPv6 (Google Statistics)</li>
+							<li>98% de los ASN soportan IPv6 (RIPE NCC)</li>
+							<li>Espacio IPv4 agotado en todas las regiones</li>
+						</ul>
+					</li>
+				</ul>
+			</p>
+		</div>
+        
+		<h2 id="estructuras">2. Estructuras IP básicas</h2>
+		<div class="estructura-detallada">
+			<h3>Arquitectura de IPv4</h3>
+			<p>El formato IPv4 opera bajo un esquema de 32 bits divididos en 4 octetos (8 bits cada uno), implementando tres tipos principales de direcciones:</p>
+			
+			<div class="tabla-ipv4">
+				<table>
+					<tr><th>Tipo</th><th>Rango</th><th>Función</th><th>Ejemplo</th></tr>
+					<tr><td>Unicast</td><td>0.0.0.1 - 223.255.255.254</td><td>Comunicación uno a uno</td><td>192.168.1.10</td></tr>
+					<tr><td>Multicast</td><td>224.0.0.0 - 239.255.255.255</td><td>Difusión a grupo</td><td>224.0.0.9 (RIP)</td></tr>
+					<tr><td>Broadcast</td><td>255.255.255.255</td><td>Difusión a toda la red</td><td>192.168.1.255</td></tr>
+				</table>
+			</div>
+
+			<h4>Descomposición Binaria</h4>
+			<p>Ejemplo de dirección IPv4 en formato binario:</p>
+			<code>172.16.254.1 → 10101100.00010000.11111110.00000001</code>
+			
+			<h3>Encabezado IPv4 (RFC 791)</h3>
+			<p>Estructura técnica del paquete:</p>
+			<ul>
+				<li><strong>Versión (4 bits)</strong>: Siempre 0100</li>
+				<li><strong>IHL (4 bits)</strong>: Longitud del encabezado (20-60 bytes)</li>
+				<li><strong>Tipo de Servicio (8 bits)</strong>: Calidad de servicio (QoS)</li>
+				<li><strong>Identificación (16 bits)</strong>: Control de fragmentación</li>
+				<li><strong>TTL (8 bits)</strong>: Límite de saltos</li>
+				<li><strong>Protocolo (8 bits)</strong>: TCP(6)/UDP(17)/ICMP(1)</li>
+				<li><strong>Checksum (16 bits)</strong>: Verificación de integridad</li>
+			</ul>
+
+			<h3>Arquitectura de IPv6</h3>
+			<p>El formato de 128 bits (16 bytes) introduce mejoras estructurales:</p>
+			<div class="diagrama-ipv6">
+				<table>
+					<tr><th>Parte</th><th>Bits</th><th>Función</th></tr>
+					<tr><td>Prefijo Global</td><td>48</td><td>Jerarquía de routing</td></tr>
+					<tr><td>ID Subred</td><td>16</td><td>Identificador local</td></tr>
+					<tr><td>ID Interfaz</td><td>64</td><td>Dirección física (EUI-64)</td></tr>
+				</table>
+			</div>
+
+			<h4>Tipos de Direcciones IPv6 (RFC 4291)</h4>
+			<ul>
+				<li><strong>Unicast Global</strong>: 2000::/3 (Internet pública)</li>
+				<li><strong>Unicast Link-Local</strong>: FE80::/10 (Red local)</li>
+				<li><strong>Multicast</strong>: FF00::/8 (Grupos funcionales)</li>
+				<li><strong>Anycast</strong>: Comparte formato Unicast</li>
+			</ul>
+
+			<h3>Encabezado IPv6 (RFC 8200)</h3>
+			<p>Rediseño para eficiencia:</p>
+			<table class="comparativa-encabezados">
+				<tr><th>Campo</th><th>IPv4</th><th>IPv6</th></tr>
+				<tr><td>Longitud</td><td>20-60 bytes</td><td>40 bytes fijos</td></tr>
+				<tr><td>Fragmentación</td><td>En routers</td><td>Solo origen</td></tr>
+				<tr><td>Checksum</td><td>Sí</td><td>No (confía en capa 2/4)</td></tr>
+				<tr><td>Opciones</td><td>En cabecera</td><td>Extensiones separadas</td></tr>
+			</table>
+
+			<h3>Mecanismos de Transición</h3>
+			<p>Estrategias para coexistencia:</p>
+			<ul>
+				<li><strong>Dual Stack</strong>: Ejecutar ambos protocolos simultáneamente</li>
+				<li><strong>Tunneling</strong>: Encapsular IPv6 en IPv4 (6in4)</li>
+				<li><strong>Traducción</strong>: NAT64/DNS64 para acceso cruzado</li>
+			</ul>
+
+			<h3>Ejemplo Práctico: Conversión IPv4 a IPv6</h3>
+			<p>Técnica de mapeo IPv4-mapped IPv6 address (RFC 4291):</p>
+			<code>::ffff:192.168.1.1 → 0000:0000:0000:0000:0000:ffff:c0a8:0101</code>
+		</div>
+		
+        <h2 id="evolucion">3. Evolución IPv4 a IPv6</h2>
+		<div class="evolucion-detallada">
+			<h3>Limitaciones Críticas de IPv4</h3>
+			<ul>
+				<li><strong>Agotamiento de Direcciones</strong>: Exhaustión del pool central IANA en 2011 (RFC 6890)</li>
+				<li><strong>Fragmentación Ineficiente</strong>: Requería procesamiento en routers intermedios</li>
+				<li><strong>Seguridad Adicional</strong>: IPsec como complemento (RFC 4301)</li>
+				<li><strong>Complejidad de Encabezado</strong>: 13 campos variables vs 8 fijos en IPv6</li>
+			</ul>
+
+			<h3>Mejoras Clave en IPv6</h3>
+			<div class="tabla-mejoras">
+				<table>
+					<tr><th>Característica</th><th>IPv4</th><th>IPv6</th><th>Ventaja</th></tr>
+					<tr><td>Espacio de direcciones</td><td>32 bits</td><td>128 bits</td><td>≈5×10<sup>28</sup> direcciones por persona</td></tr>
+					<tr><td>Configuración automática</td><td>DHCP</td><td>SLAAC (RFC 4862)</td><td>Sin servidores</td></tr>
+					<tr><td>Encabezado</td><td>Variable (20-60B)</td><td>Fijo (40B)</td><td>Mejor procesamiento</td></tr>
+					<tr><td>Multicast</td><td>Opcional</td><td>Nativo</td><td>Eficiencia en streaming</td></tr>
+					<tr><td>Movilidad</td><td>MIPv4 (RFC 5944)</td><td>MIPv6 (RFC 6275)</td><td>Sin triangular routing</td></tr>
+				</table>
+			</div>
+
+			<h3>Proceso de Transición Técnica</h3>
+			<p>Principales retos en migración:</p>
+			<ol>
+				<li><strong>Dual-Stack</strong>: Mantener ambos protocolos (RFC 4213)
+					<ul>
+						<li>Requiere soporte en OS y routers</li>
+						<li>Incrementa tabla de routing</li>
+					</ul>
+				</li>
+				<li><strong>Túneles de Transición</strong>:
+					<ul>
+						<li>6to4 (RFC 3056): IPv6 sobre IPv4</li>
+						<li>TEREDO (RFC 4380): IPv6 a través de NAT</li>
+					</ul>
+				</li>
+				<li><strong>Traducción de Protocolos</strong>:
+					<code>NAT64 (RFC 6146) + DNS64 (RFC 6147)</code>
+				</li>
+			</ol>
+
+			<h3>Adopción Global Actual</h3>
+			<div class="estadisticas-adopcion">
+				<table>
+					<tr><th>País</th><th>% Adopción</th><th>ISP Líder</th><th>Estrategia</th></tr>
+					<tr><td>India</td><td>78%</td><td>Reliance Jio</td><td>Nativo desde 2016</td></tr>
+					<tr><td>EEUU</td><td>56%</td><td>Comcast</td><td>Dual-Stack</td></tr>
+					<tr><td>Alemania</td><td>63%</td><td>Deutsche Telekom</td><td>DS-Lite</td></tr>
+					<tr><td>Brasil</td><td>41%</td><td>Vivo</td><td>6RD</td></tr>
+				</table>
+			</div>
+		</div>
+
+        <h2 id="clasificacion">4. Clasificación de direcciones IPv4</h2>
+		<div class="clasificacion-detallada">
+			<h3>Sistema de Clases Original (RFC 791)</h3>
+			<div class="clases-fundamentales">
+				<table>
+					<tr><th>Clase</th><th>Primer Octeto</th><th>Máscara</th><th>Redes/Hosts</th><th>Uso</th></tr>
+					<tr><td>A</td><td>1-126</td><td>255.0.0.0</td><td>126 / 16M</td><td>Grandes corporaciones</td></tr>
+					<tr><td>B</td><td>128-191</td><td>255.255.0.0</td><td>16,384 / 65K</td><td>Universidades</td></tr>
+					<tr><td>C</td><td>192-223</td><td>255.255.255.0</td><td>2M / 254</td><td>PYMES</td></tr>
+					<tr><td>D</td><td>224-239</td><td>N/A</td><td>Multicast</td><td>Grupos</td></tr>
+					<tr><td>E</td><td>240-255</td><td>N/A</td><td>Experimental</td><td>IETF</td></tr>
+				</table>
+			</div>
+
+			<h3>Problemas del Sistema por Clases</h3>
+			<ul>
+				<li><strong>Desperdicio de Direcciones</strong>: Una red Clase A podía tener 16M hosts no utilizados</li>
+				<li><strong>Crecimiento de Tablas de Routing</strong>: Fragmentación de redes Clase C</li>
+				<li><strong>Rigidez Estructural</strong>: No adaptado a redes de tamaño variable</li>
+			</ul>
+
+			<h3>Ejemplo Práctico: Subdivisión de Clase A</h3>
+			<p>Red original: 10.0.0.0/8 (Clase A)<br>
+			Subdivisión en /16:
+			<code>10.0.0.0/16 → 10.255.0.0/16 (65,536 redes / 254 hosts cada una)</code></p>
+		</div>
+        <h2 id="subredes">5. Subredes y máscaras</h2>
+		<div class="subredes-detalladas">
+			<h3>Fundamentos de Subnetting</h3>
+			<p>La división en subredes permite optimizar el espacio de direcciones mediante:</p>
+			<ul>
+				<li><strong>Máscara de subred</strong>: Binario continuo de 1's (red) y 0's (host)</li>
+				<li><strong>Fórmula de hosts</strong>: 2<sup>(32 - n)</sup> - 2 (IPv4) donde n = bits red</li>
+				<li><strong>Fórmula de subredes</strong>: 2<sup>(n - bits_clase)</sup> (para subnetting clase-full)</li>
+			</ul>
+
+			<div class="ejemplo-subnetting">
+				<h4>Ejemplo Práctico IPv4:</h4>
+				<p>Red: 192.168.0.0/24 → 254 hosts<br>
+				Subdivisión en 4 subredes /26:
+				<table>
+					<tr><th>Subred</th><th>Rango IP</th><th>Broadcast</th><th>Hosts útiles</th></tr>
+					<tr><td>192.168.0.0/26</td><td>0.1 - 0.62</td><td>0.63</td><td>62</td></tr>
+					<tr><td>192.168.0.64/26</td><td>0.65 - 0.126</td><td>0.127</td><td>62</td></tr>
+					<tr><td>192.168.0.128/26</td><td>0.129 - 0.190</td><td>0.191</td><td>62</td></tr>
+					<tr><td>192.168.0.192/26</td><td>0.193 - 0.254</td><td>0.255</td><td>62</td></tr>
+				</table>
+			</div>
+
+			<h3>VLSM (Variable Length Subnet Mask)</h3>
+			<p>Técnica para subnetting de tamaño variable en una misma red principal:</p>
+			<code>Red principal: 172.16.0.0/16<br>
+			- Subred A: 172.16.1.0/26 (62 hosts)<br>
+			- Subred B: 172.16.1.64/28 (14 hosts)<br>
+			- Subred C: 172.16.1.80/30 (2 hosts)</code>
+
+			<h3>Subnetting en IPv6</h3>
+			<p>En IPv6 se usa terminología diferente:</p>
+			<ul>
+				<li><strong>Prefijo Global</strong>: /48 asignado por RIR</li>
+				<li><strong>ID Subred</strong>: 16 bits (/64 a /112)</li>
+				<li><strong>Ejemplo</strong>: 2001:db8:1234:5600::/56 permite 4,096 subredes /64</li>
+			</ul>
+
+		</div>
+        <h2 id="alcance">6. Direcciones por alcance</h2>
+		<div class="alcance-detallado">
+			<h3>Jerarquía de Direccionamiento IPv4</h3>
+			<div class="direcciones-ipv4">
+				<table>
+					<tr><th>Tipo</th><th>Rango</th><th>NAT</th><th>Enrutamiento</th></tr>
+					<tr><td>Pública</td><td>Global unicast</td><td>No</td><td>Internet</td></tr>
+					<tr><td>Privada</td><td>RFC 1918</td><td>Sí</td><td>Local</td></tr>
+					<tr><td>APIPA</td><td>169.254.0.0/16</td><td>No</td><td>Link-local</td></tr>
+				</table>
+			</div>
+
+			<h3>NAT (Network Address Translation)</h3>
+			<p>Mecanismo esencial para conservación de IPv4:</p>
+			<ul>
+				<li><strong>Static NAT</strong>: Mapeo 1:1 (servidores)</li>
+				<li><strong>Dynamic NAT</strong>: Pool de IPs públicas</li>
+				<li><strong>PAT (NAT Overload)</strong>: Mapeo múltiple por puertos</li>
+			</ul>
+			<code>Ejemplo PAT: 10.0.0.5:1234 → 203.0.113.5:54321</code>
+
+			<h3>Direcciones IPv6 Globales</h3>
+			<p>Estructura jerárquica (RFC 3587):</p>
+			<code>2001:0db8:1234:5678::/64<br>
+			├── Global Routing Prefix: 2001:0db8:1234 (48 bits)<br>
+			├── Subnet ID: 5678 (16 bits)<br>
+			└── Interface ID: :: (64 bits EUI-64)</code>
+
+			<h3>Direcciones Especiales IPv6</h3>
+			<table class="especiales-ipv6">
+				<tr><th>Dirección</th><th>Tipo</th><th>Uso</th></tr>
+				<tr><td>::1/128</td><td>Loopback</td><td>localhost</td></tr>
+				<tr><td>ff00::/8</td><td>Multicast</td><td>Grupos funcionales</td></tr>
+				<tr><td>fe80::/10</td><td>Link-local</td><td>Autoconfiguración</td></tr>
+			</table>
+		</div>
+        <h2 id="casos">7. Casos de estudio</h2>
+		<div class="casos-detallados">
+			<h3>Caso 1: Empresa Multisucursal</h3>
+			<p><strong>Requerimientos</strong>:<br>
+			- 5 oficinas con 50-200 dispositivos<br>
+			- Conectividad VPN site-to-site<br>
+			- Servidores accesibles desde Internet</p>
+
+			<div class="solucion-caso1">
+				<code>Esquema de direccionamiento:<br>
+				- Red principal: 172.16.0.0/12<br>
+				- Sucursales: /22 (1,022 hosts c/u)<br>
+				- DMZ: 203.0.113.16/28 (14 IPs públicas)<br>
+				- NAT Overload: PAT para usuarios</code>
+			</div>
+
+			<h3>Caso 2: Centro de Datos IPv6</h3>
+			<p><strong>Arquitectura</strong>:<br>
+			- Prefijo asignado: 2001:db8:1234::/48<br>
+			- Subredes por función:<br>
+			<table>
+				<tr><th>Función</th><th>Subred</th><th>Hosts</th></tr>
+				<tr><td>Web Servers</td><td>::/64</td><td>18,446 trillones</td></tr>
+				<tr><td>Storage</td><td>:1000::/64</td><td>Mismo espacio</td></tr>
+			</table>
+
+		</div>
+    </div>
+</body>
+</html>
